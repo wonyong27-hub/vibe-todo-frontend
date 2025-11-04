@@ -5,7 +5,12 @@ import './App.css'
 // 환경변수가 없을 경우 기본값 사용
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://vibe-todo-backend1-45443a5ea80b.herokuapp.com'
 const API_PATH = import.meta.env.VITE_API_PATH || '/todos'
-const API_URL = `${API_BASE_URL}${API_PATH}`
+
+// API_URL 생성: 중복 방지
+// API_BASE_URL이 이미 /todos로 끝나면 그대로 사용, 아니면 API_PATH 추가
+const API_URL = API_BASE_URL.endsWith('/todos') 
+  ? API_BASE_URL 
+  : `${API_BASE_URL}${API_PATH.startsWith('/') ? API_PATH : `/${API_PATH}`}`
 
 // 디버깅: 환경변수 확인
 console.log('환경변수 확인:')
